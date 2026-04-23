@@ -29,7 +29,6 @@ def mode(arr):
     
     return ans
      
-
 def variance(arr):
     m = mean(arr)
     sol = 0 
@@ -59,17 +58,16 @@ def covariance(arr1, arr2):
     return sol / (len(arr1))
 
 def min_max(arr1):
-    min = float('inf')
-    max = float('-inf')
+    min_val = float('inf')
+    max_val = float('-inf')
     
     for num in arr1:
-        if num < min:
-            min = num
+        if num < min_val:
+            min_val = num
             
-        if num > max:
-            max = num
+        if num > max_val:
+            max_val = num
         
-    for i in range(len(arr1)):
-        arr1[i] = round((arr1[i] - min) / (max - min), 5)
+ 
     
-    return arr1
+    return [round((arr1[i] - min_val) / (max_val - min_val), 5) for i in range(len(arr1))]

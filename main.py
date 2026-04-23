@@ -1,29 +1,61 @@
-import stats
+import stats, sys
 
 def menu():
-    # This should display menu: 1. summary of single list / 2. correlation of two list / q to quit / default to 're'
-    # after selecting input must be done: one input for 1. and two inputs for 2.
-        # check_arr()
-    # IF summary then 
-        # summary(data)
-    # IF correlation then
-        # relation(arr1, arr2)
-    pass
+    while True:
+        option = input("------------Menu------------\n1. Summary of data set\n2. correlation of two data sets\nq to quit\nEnter number: ")
 
-def help_check_arr(arr):
-    # TODO check whether it is vaild arr with float value
-    # and sort
-    pass
+        match option:
+            case '1':
+                print_summary()
+            case '2':
+                print_correlation()
+            case 'q':
+                sys.exit("Program Successfully Terminated")
+            case _:
+                print("Please type valid number\n")
+        
+def help_check_arr(num):
+    while True: 
+        st = input(f"Data {num}: ")
+        try:
+            st = st.replace(" ", "")
+            arr = st.split(",")
+            n = len(arr)
+            for i in range(n):
+                arr[i] = float(arr[i])
+            return arr
+        except ValueError:
+            print("Input must be number splited by comma")
 
-def print_summary(arr):
-    # get all the functions from stats to do analysis
-    pass
+def print_summary():
+    arr = help_check_arr(1)
+    arr.sort()
+    print("\n----------Summary-------------\n")
+    print(f"Mean:                {stats.mean(arr):.3f}")
+    print(f"Median:              {stats.median(arr)}")
+    print(f"Mode:                {stats.mode(arr)}")
+    print(f"Variance:            {stats.variance(arr):.3f}")
+    print(f"Standard Deviation:  {stats.std(arr):.3f}")
+    print(f"Min Max:             {stats.min_max(arr)}")
+    print("\n")
 
-def print_correlation(arr1, arr2):
+def print_correlation():
     # TODO get correlation func fron stats and print correlation
-    pass
-def main():
-    pass
+    while True:
+        arr1 = help_check_arr(1)
+        arr2 = help_check_arr(2)
+        
+        if len(arr1) == len(arr2):
+            break
+        else:
+            print("data 1 and data 2 must have same length. \n")
+    
+    print("\n")
+    print(f"Correlation: {stats.correlation(arr1, arr2):.3f}")
+    print("\n")
 
+def main():
+    menu()
+    
 if __name__ == '__main__':
     main()
